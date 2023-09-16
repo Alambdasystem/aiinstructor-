@@ -1,0 +1,36 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: .NET Core 6.0 Razor Application on AWS Elastic Beanstalk
+
+Resources:
+  MySampleApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      Description: My .NET Core 6.0 Razor Application
+
+  MySampleEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref MySampleApplication
+      EnvironmentName: SampleEnvironment
+      SolutionStackName: 64bit Amazon Linux 2 v5.7.0 running .NET Core
+      OptionSettings:
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: InstanceType
+          Value: t2.micro
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: aws:elasticbeanstalk:container:dotnetcore
+          OptionName: DotnetcoreVersion
+          Value: 6.0
+      Tags:
+        - Key: Name
+          Value: MySampleApp
+
+Outputs:
+  ApplicationURL:
+    Description: URL for the deployed .NET Core 6.0 Razor Application
+    Value: !Sub http://${MySampleEnvironment.EndpointURL}
+```
+.
