@@ -1,0 +1,15 @@
+@page
+@using YourApp.Pages;
+@model UploadVideoModel
+@{
+    ViewData["Title"] = "Upload Video";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="upload-section">
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="videoFile" />
+        <button type="submit">Upload Video</button>
+    </form>
+</div>

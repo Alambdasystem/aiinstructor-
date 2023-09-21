@@ -1,0 +1,37 @@
+@page
+@using YourApp.Pages;
+@model DashboardModel
+@{
+    ViewData["Title"] = "Interactive Video Dashboard";
+}
+
+<div class="dashboard">
+    <!-- Video Viewing Section -->
+    @if (!string.IsNullOrWhiteSpace(Model.VideoUrl))
+    {
+        <div class="video-player">
+            <!-- Video Player Component -->
+            <video id="videoPlayer" controls src="@Model.VideoUrl"></video>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section">
+            <h2>Quiz Questions</h2>
+            @foreach (var question in Model.QuizQuestions)
+            {
+                <div class="quiz-question">@question</div>
+            }
+        </div>
+
+        <!-- AI Integration for Interactive Guidance -->
+        <div class="ai-assistant">
+            <h2>AI Assistant Messages</h2>
+            <div class="chat">
+                @foreach (var message in Model.AIAssistantMessages)
+                {
+                    <div class="message">@message</div>
+                }
+            </div>
+        </div>
+    }
+</div>
