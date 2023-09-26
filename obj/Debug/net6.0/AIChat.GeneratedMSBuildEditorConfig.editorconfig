@@ -9,45 +9,45 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AIChat
 build_property.RootNamespace = AIChat
-build_property.ProjectDir = C:\Users\softc\onedrive\desktop\AIChat\
+build_property.ProjectDir = C:\Users\Tcp\aiinstructor-\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\softc\onedrive\desktop\AIChat
+build_property.MSBuildProjectDirectory = C:\Users\Tcp\aiinstructor-
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Dashboard.cshtml]
+[C:/Users/Tcp/aiinstructor-/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = RGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/Error.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/Index.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/Privacy.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/_ViewImports.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/_ViewStart.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/UploadVideo.cshtml]
+[C:/Users/Tcp/aiinstructor-/UploadVideo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = VXBsb2FkVmlkZW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/softc/onedrive/desktop/AIChat/Pages/Shared/_Layout.cshtml]
+[C:/Users/Tcp/aiinstructor-/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-w3skpzdqok
