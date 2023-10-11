@@ -5,23 +5,87 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">AI Video Trainer Studio</h1>
 </div>
 
 <div class="upload-container">
     <h2>Upload Video to Training Platform</h2>
-    <div class="input-group">
-        <label for="videoFile">Select Video File:</label>
-        <input type="file" id="videoFile" name="videoFile">
-    </div>
-    <div class="input-group">
-        <label for="videoTitle">Video Title:</label>
-        <input type="text" id="videoTitle" name="videoTitle">
-    </div>
-    <div class="input-group">
-        <label for="videoDescription">Video Description:</label>
-        <textarea id="videoDescription" name="videoDescription"></textarea>
-    </div>
-    <button type="submit" class="upload-btn">Upload</button>
+    <form method="post" enctype="multipart/form-data" action="/UploadVideo">
+        <div class="input-group">
+            <label for="videoFile">Select Video File:</label>
+            <input type="file" id="videoFile" name="videoFile" required>
+        </div>
+        <div class="input-group">
+            <label for="videoTitle">Video Title:</label>
+            <input type="text" id="videoTitle" name="videoTitle" required>
+        </div>
+        <div class="input-group">
+            <label for="videoDescription">Video Description:</label>
+            <textarea id="videoDescription" name="videoDescription" required></textarea>
+        </div>
+        <button type="submit" class="upload-btn">Upload</button>
+    </form>
 </div>
+<!--
+    I need to add a new div here to display the list of videos
+ -->
+ <div>  
+     <h2>Video List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Video Title</th>
+                <th>Video Description</th>
+                <th>Video URL</th>
+            </tr>
+        </thead>
+       
+        <tbody>
+            @foreach (var video in Model.Videos)
+            {
+                <tr>
+                    <td>@video.Title</td>
+                    <td>@video.Description</td>
+                    <td>@video.VideoUrl</td>
+                </tr>
+            }
+    </table>
+ </div>
+ 
+
+<style>
+    .upload-container {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-group input, .input-group textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .upload-btn {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .upload-btn:hover {
+        background-color: #218838;
+    }
+</style>
