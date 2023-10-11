@@ -4,7 +4,9 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container text-center" style="background-color: #121212; color: #0f0; height: 100vh;">
+<canvas id="matrixCanvas"></canvas>
+
+<div class="container text-center" style="background-color: #121212; color: #0f0; height: 100vh; position: relative; z-index: 2;">
 
     <h1 class="display-4 mt-3" style="color: #0f0; text-shadow: 0 0 10px #0f0;">AI Video Trainer Studio</h1>
 
@@ -52,6 +54,66 @@
 </div>
 
 <style>
+    /* ... your existing styles ... */
+
+    #matrixCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .upload-container {
+        margin: 20px;
+        padding: 20px;
+        border: 2px solid #0f0;
+        border-radius: 8px;
+        background-color: #222;
+        color: #0f0;
+        position: relative;
+    }
+
+    .upload-container::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        border: 2px solid #0f0;
+        opacity: 0;
+        border-radius: 8px;
+        box-shadow: 0 0 10px #0f0;
+        animation: pulse 2s infinite;
+    }
+
+    .upload-btn {
+        padding: 10px 20px;
+        background-color: #121212;
+        color: #0f0;
+        border: 2px solid #0f0;
+        border-radius: 4px;
+        cursor: pointer;
+        text-shadow: 0 0 5px #0f0;
+    }
+
+    .upload-btn:hover {
+        background-color: #0f0;
+        color: #121212;
+    }
+
+    .form-control:focus {
+        border-color: #0f0;
+        box-shadow: 0 0 10px #0f0;
+    }
+
+    .card:hover {
+        border-color: #0f0;
+        box-shadow: 0 0 10px #0f0;
+    }
+
+    keyframes pulse {
+        0% { opacity: 0; }
+        50% { opacity: .5; }
+        100% { opacity: 0; }
+    }
     .upload-container {
         margin: 20px;
         padding: 20px;
@@ -104,3 +166,50 @@
         100% { opacity: 0; }
     }
 </style>
+
+<script>
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789$%&';
+    const devWords = ['function', 'alambda', 'return', 'class', 'const', 'azure'];
+    const fontSize = 10;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+    const faces = ['😊', '😂', '🥺', '😍'];
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0f0';
+        ctx.font = fontSize + 'px monospace';
+        
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = Math.random() > 0.95 ?
+                devWords[Math.floor(Math.random() * devWords.length)] :
+                characters.charAt(Math.floor(Math.random() * characters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (Math.random() > 0.99) {
+                const face = faces[Math.floor(Math.random() * faces.length)];
+                const x = Math.floor(Math.random() * canvas.width);
+                const y = Math.floor(Math.random() * canvas.height);
+                ctx.fillText(face, x, y);
+            }
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 33);
+</script>
