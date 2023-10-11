@@ -4,88 +4,103 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">AI Video Trainer Studio</h1>
-</div>
+<div class="container text-center" style="background-color: #121212; color: #0f0; height: 100vh;">
 
-<div class="upload-container">
-    <h2>Upload Video to Training Platform</h2>
-    <form method="post" enctype="multipart/form-data" action="/UploadVideo">
-        <div class="input-group">
-            <label for="videoFile">Select Video File:</label>
-            <input type="file" id="videoFile" name="videoFile" required>
-        </div>
-        <div class="input-group">
-            <label for="videoTitle">Video Title:</label>
-            <input type="text" id="videoTitle" name="videoTitle" required>
-        </div>
-        <div class="input-group">
-            <label for="videoDescription">Video Description:</label>
-            <textarea id="videoDescription" name="videoDescription" required></textarea>
-        </div>
-        <button type="submit" class="upload-btn">Upload</button>
-    </form>
-</div>
-<!--
-    I need to add a new div here to display the list of videos
- -->
- <div>  
-     <h2>Video List</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Video Title</th>
-                <th>Video Description</th>
-                <th>Video URL</th>
-            </tr>
-        </thead>
-       
-        <tbody>
+    <h1 class="display-4 mt-3" style="color: #0f0; text-shadow: 0 0 10px #0f0;">AI Video Trainer Studio</h1>
+
+    <!-- Upload Section -->
+    <div class="upload-container mt-5">
+        <h2>Upload Video to Training Platform</h2>
+        <form method="post" enctype="multipart/form-data" action="/UploadVideo" style="color: #0f0;">
+            <div class="input-group mb-3">
+                <label for="videoFile" class="form-label">Select Video File:</label>
+                <input type="file" id="videoFile" name="videoFile" class="form-control" required style="color: #0f0; border-color: #0f0;">
+            </div>
+            <div class="input-group mb-3">
+                <label for="videoTitle" class="form-label">Video Title:</label>
+                <input type="text" id="videoTitle" name="videoTitle" class="form-control" required style="color: #0f0; border-color: #0f0;">
+            </div>
+            <div class="input-group mb-3">
+                <label for="videoDescription" class="form-label">Video Description:</label>
+                <textarea id="videoDescription" name="videoDescription" class="form-control" required style="color: #0f0; border-color: #0f0;"></textarea>
+            </div>
+            <button type="submit" class="btn upload-btn">Upload</button>
+        </form>
+    </div>
+
+    <!-- Video List Section -->
+    <div class="mt-5">
+        <h2 style="color: #0f0; text-shadow: 0 0 10px #0f0;">Video List</h2>
+        <div class="row">
             @foreach (var video in Model.Videos)
             {
-                <tr>
-                    <td>@video.Title</td>
-                    <td>@video.Description</td>
-                    <td>@video.VideoUrl</td>
-                </tr>
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: #222; border-color: #0f0;">
+                        <video class="card-img-top" controls onmouseover="this.play()" onmouseout="this.pause();" style="border-bottom: 2px solid #0f0;">
+                            <source src="@video.VideoUrl" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="card-body" style="color: #0f0;">
+                            <h5 class="card-title">@video.Title</h5>
+                            <p class="card-text">@video.Description</p>
+                        </div>
+                    </div>
+                </div>
             }
-    </table>
- </div>
- 
+        </div>
+    </div>
+</div>
 
 <style>
     .upload-container {
         margin: 20px;
         padding: 20px;
-        border: 1px solid #ccc;
+        border: 2px solid #0f0;
         border-radius: 8px;
+        background-color: #222;
+        color: #0f0;
+        position: relative;
     }
 
-    .input-group {
-        margin-bottom: 10px;
-    }
-
-    .input-group label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .input-group input, .input-group textarea {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
+    .upload-container::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        border: 2px solid #0f0;
+        opacity: 0;
+        border-radius: 8px;
+        box-shadow: 0 0 10px #0f0;
+        animation: pulse 2s infinite;
     }
 
     .upload-btn {
         padding: 10px 20px;
-        background-color: #28a745;
-        color: #fff;
-        border: none;
+        background-color: #121212;
+        color: #0f0;
+        border: 2px solid #0f0;
         border-radius: 4px;
         cursor: pointer;
+        text-shadow: 0 0 5px #0f0;
     }
 
     .upload-btn:hover {
-        background-color: #218838;
+        background-color: #0f0;
+        color: #121212;
+    }
+
+    .form-control:focus {
+        border-color: #0f0;
+        box-shadow: 0 0 10px #0f0;
+    }
+
+    .card:hover {
+        border-color: #0f0;
+        box-shadow: 0 0 10px #0f0;
+    }
+
+    keyframes pulse {
+        0% { opacity: 0; }
+        50% { opacity: .5; }
+        100% { opacity: 0; }
     }
 </style>

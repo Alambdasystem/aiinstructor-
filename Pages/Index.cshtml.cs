@@ -27,8 +27,15 @@ namespace AIChat.Pages
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = "your_connection_string_here";
-            optionsBuilder.UseSqlServer(connectionString);
+            try
+            {
+                var connectionString = "your_connection_string_here";
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error configuring database: {ex.Message}");
+            }
         }
     }
 
@@ -54,7 +61,15 @@ namespace AIChat.Pages
 
         public void OnGet()
         {
-            Videos = LoadVideosFromDatabase();
+            try
+            {
+                Videos = LoadVideosFromDatabase();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading videos from database: {ex.Message}");
+                Videos = new List<VideoMetadata>(); // Initialize to empty list on error
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -64,73 +79,119 @@ namespace AIChat.Pages
                 return Page();
             }
 
-            await UploadAndProcessVideoAsync(VideoFile, VideoTitle, VideoDescription);
+            try
+            {
+                await UploadAndProcessVideoAsync(VideoFile, VideoTitle, VideoDescription);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading and processing video: {ex.Message}");
+            }
+
             return RedirectToPage();
         }
 
         private List<VideoMetadata> LoadVideosFromDatabase()
         {
-            using (var dbContext = new YourDbContext())
+            try
             {
-                return dbContext.VideoMetadatas.ToList();
+                using (var dbContext = new YourDbContext())
+                {
+                    return dbContext.VideoMetadatas.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading videos from database: {ex.Message}");
+                return new List<VideoMetadata>(); // Return empty list on error
             }
         }
 
         private async Task UploadAndProcessVideoAsync(IFormFile videoFile, string title, string description)
         {
-            var videoUrl = await UploadToBlobStorage(videoFile);
-            var insights = await ProcessWithVideoIndexer(videoUrl, videoFile.FileName);
-            await StoreMetadataInDatabase(title, description, videoUrl, insights);
+            try
+            {
+                var videoUrl = await UploadToBlobStorage(videoFile);
+                var insights = await ProcessWithVideoIndexer(videoUrl, videoFile.FileName);
+                await StoreMetadataInDatabase(title, description, videoUrl, insights);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UploadAndProcessVideoAsync: {ex.Message}");
+            }
         }
 
         private async Task<string> UploadToBlobStorage(IFormFile videoFile)
         {
-            string connectionString = _configuration.GetConnectionString("BlobStorage");
-            string containerName = "your_container_name";
-            var blobServiceClient = new BlobServiceClient(connectionString);
-            var blobContainerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            var blobClient = blobContainerClient.GetBlobClient(videoFile.FileName);
-
-            using (var stream = videoFile.OpenReadStream())
+            try
             {
-                await blobClient.UploadAsync(stream, overwrite: true);
-            }
+                string connectionString = _configuration.GetConnectionString("BlobStorage");
+                string containerName = "your_container_name";
+                var blobServiceClient = new BlobServiceClient(connectionString);
+                var blobContainerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                var blobClient = blobContainerClient.GetBlobClient(videoFile.FileName);
 
-            return blobClient.Uri.ToString();
+                using (var stream = videoFile.OpenReadStream())
+                {
+                    await blobClient.UploadAsync(stream, overwrite: true);
+                }
+
+                return blobClient.Uri.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading to Blob Storage: {ex.Message}");
+                return string.Empty; // Return empty string on error
+            }
         }
 
         private async Task<string> ProcessWithVideoIndexer(string videoUrl, string videoName)
         {
-            string apiKey = _configuration["VideoIndexer:ApiKey"];
-            string accountId = _configuration["VideoIndexer:AccountId"];
-            string location = _configuration["VideoIndexer:Location"];
-            string apiUrl = $"https://api.videoindexer.ai/{location}/Accounts/{accountId}/Videos?accessToken={apiKey}&name={videoName}&videoUrl={videoUrl}";
-
-            using (var httpClient = new HttpClient())
+            try
             {
-                var response = await httpClient.PostAsync(apiUrl, null);
-                var content = await response.Content.ReadAsStringAsync();
-                var videoIndex = JsonSerializer.Deserialize<JsonElement>(content);
-                var insights = videoIndex.GetProperty("insights").ToString();
+                string apiKey = _configuration["VideoIndexer:ApiKey"];
+                string accountId = _configuration["VideoIndexer:AccountId"];
+                string location = _configuration["VideoIndexer:Location"];
+                string apiUrl = $"https://api.videoindexer.ai/{location}/Accounts/{accountId}/Videos?accessToken={apiKey}&name={videoName}&videoUrl={videoUrl}";
 
-                return insights;
+                using (var httpClient = new HttpClient())
+                {
+                    var response = await httpClient.PostAsync(apiUrl, null);
+                    var content = await response.Content.ReadAsStringAsync();
+                    var videoIndex = JsonSerializer.Deserialize<JsonElement>(content);
+                    var insights = videoIndex.GetProperty("insights").ToString();
+
+                    return insights;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error processing with Video Indexer: {ex.Message}");
+                return string.Empty; // Return empty string on error
             }
         }
 
         private async Task StoreMetadataInDatabase(string title, string description, string videoUrl, string insights)
         {
-            var videoMetadata = new VideoMetadata
+            try
             {
-                Title = title,
-                Description = description,
-                VideoUrl = videoUrl,
-                Insights = insights
-            };
+                var videoMetadata = new VideoMetadata
+                {
+                    Title = title,
+                    Description = description,
+                    VideoUrl = videoUrl,
+                    Insights = insights
+                };
 
-            using (var dbContext = new YourDbContext())
+                using (var dbContext = new YourDbContext())
+                {
+                    dbContext.VideoMetadatas.Add(videoMetadata);
+                    await dbContext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
             {
-                dbContext.VideoMetadatas.Add(videoMetadata);
-                await dbContext.SaveChangesAsync();
+                Console.WriteLine($"Error storing metadata in database: {ex.Message}");
             }
         }
     }
