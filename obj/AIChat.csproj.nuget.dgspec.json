@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tcp\\aiinstructor-\\AIChat.csproj": {}
+    "C:\\Users\\torre\\OneDrive\\Desktop\\aiinstructor-\\AIChat.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tcp\\aiinstructor-\\AIChat.csproj": {
+    "C:\\Users\\torre\\OneDrive\\Desktop\\aiinstructor-\\AIChat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tcp\\aiinstructor-\\AIChat.csproj",
+        "projectUniqueName": "C:\\Users\\torre\\OneDrive\\Desktop\\aiinstructor-\\AIChat.csproj",
         "projectName": "AIChat",
-        "projectPath": "C:\\Users\\Tcp\\aiinstructor-\\AIChat.csproj",
-        "packagesPath": "C:\\Users\\Tcp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tcp\\aiinstructor-\\obj\\",
+        "projectPath": "C:\\Users\\torre\\OneDrive\\Desktop\\aiinstructor-\\AIChat.csproj",
+        "packagesPath": "C:\\Users\\torre\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\torre\\OneDrive\\Desktop\\aiinstructor-\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Tcp\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\torre\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,8 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://www.nuget.org/api/v2/": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -45,9 +40,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.18.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.RazorPages": {
               "target": "Package",
               "version": "[2.2.5, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.12, )"
             }
           },
           "imports": [
@@ -69,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

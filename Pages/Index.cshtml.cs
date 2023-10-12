@@ -1,15 +1,9 @@
 ﻿using Azure.Storage.Blobs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace AIChat.Pages
 {
@@ -30,7 +24,7 @@ namespace AIChat.Pages
             try
             {
                 var connectionString = "your_connection_string_here";
-                optionsBuilder.UseSqlServer(connectionString);
+                object connection = optionsBuilder.UseSqlServer(connectionString);
             }
             catch (Exception ex)
             {
